@@ -23,7 +23,7 @@ logger.addHandler(fh)
 logger.addHandler(ch)
 
 # Third-party SMTP service for sending alert emails. 第三方 SMTP 服务，用于发送告警邮件
-mail_host = ""       # SMTP server, such as QQ mailbox, need to open SMTP service in the account. SMTP服务器,如QQ邮箱，需要在账户里开启SMTP服务
+mail_host = "smtp.qq.com"       # SMTP server, such as QQ mailbox, need to open SMTP service in the account. SMTP服务器,如QQ邮箱，需要在账户里开启SMTP服务
 mail_user = ""  # Username 用户名
 mail_pass = ""  # Password, SMTP service password. 口令，SMTP服务密码
 mail_port = 465  # SMTP service port. SMTP服务端口
@@ -113,8 +113,8 @@ def main_handler(event, context):
         if post.status_code >= 400:
             logger.warning("Response status code fail:" + str(resp.status_code))
     logger.info("Post completed: " + post.text)
-    subject = "Please note: Today's health check"
-    logger.info("Done, sending message: " + post.text + "to ")
+    subject = "Please note: Today's health check" + post.text
+    logger.info("Done, sending message: " + post.text + "to" + "")
     log_contents = log_str.getvalue()
     sendEmail(mail_user, "", subject, log_contents.lower())
     log_str.close()
