@@ -23,9 +23,9 @@ logger.addHandler(fh)
 logger.addHandler(ch)
 
 # Third-party SMTP service for sending alert emails. 第三方 SMTP 服务，用于发送告警邮件
-mail_host = "smtp.qq.com"       # SMTP server, such as QQ mailbox, need to open SMTP service in the account. SMTP服务器,如QQ邮箱，需要在账户里开启SMTP服务
-mail_user = "2590187490@qq.com"  # Username 用户名
-mail_pass = "fprrvocwgjojebbc"  # Password, SMTP service password. 口令，SMTP服务密码
+mail_host = ""       # SMTP server, such as QQ mailbox, need to open SMTP service in the account. SMTP服务器,如QQ邮箱，需要在账户里开启SMTP服务
+mail_user = ""  # Username 用户名
+mail_pass = ""  # Password, SMTP service password. 口令，SMTP服务密码
 mail_port = 465  # SMTP service port. SMTP服务端口
 
 class token_extract(HTMLParser):
@@ -78,9 +78,9 @@ def main_handler(event, context):
     token = token_extract_obj.get_token()
     logger.info("token extracted: "+ token)
     data = {'__RequestVerificationToken' : token,
-            'studentNo':'520712910019', 'studentName':'陳鎧之',
+            'studentNo':'', 'studentName':'',
             'mobile':'null;userAgent:WeChat;os:null;Webkit:537.36',
-            'Loction':'上海市黄浦区淮海中路街道合肥路365号上海交通大学医学院东区',
+            'Loction':'',
             'LoctionSatus':'true',
             'Country':'中国',
             'Province':'上海市',
@@ -114,9 +114,9 @@ def main_handler(event, context):
             logger.warning("Response status code fail:" + str(resp.status_code))
     logger.info("Post completed: " + post.text)
     subject = "Please note: Today's health check"
-    logger.info("Done, sending message: " + post.text + "to thomaschan32866@gmail.com")
+    logger.info("Done, sending message: " + post.text + "to ")
     log_contents = log_str.getvalue()
-    sendEmail(mail_user, "thomaschan32866@gmail.com", subject, log_contents.lower())
+    sendEmail(mail_user, "", subject, log_contents.lower())
     log_str.close()
     return True
 
